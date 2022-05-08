@@ -3,12 +3,12 @@
 
 import * as THREE from "three";
 
-			import { AsciiEffect } from 'https://unpkg.com/three/examples/jsm/effects/AsciiEffect.js';
+			
 		
 
-			let camera, controls, scene, renderer, effect;
+			let camera, scene, renderer	;
 
-			let sphere, plane;
+			let shape;
 
 			const start = Date.now();
 
@@ -24,36 +24,18 @@ import * as THREE from "three";
 				scene = new THREE.Scene();
 				scene.background = new THREE.Color( 0, 0, 0 );
 
-				const pointLight1 = new THREE.PointLight( 0xffffff );
-				pointLight1.position.set( 500, 500, 500 );
+				const pointLight1 = new THREE.AmbientLight( 0xffffff );
 				scene.add( pointLight1 );
 
-				const pointLight2 = new THREE.PointLight( 0xffffff, 0.25 );
-				pointLight2.position.set( - 500, - 500, - 500 );
-				scene.add( pointLight2 );
-				// Sphare
-				sphere = new THREE.Mesh( new THREE.OctahedronGeometry( 250, 0), new THREE.MeshPhongMaterial( { flatShading: true } ) );
-				scene.add( sphere );
-
-				// Plane
-
-				plane = new THREE.Mesh( new THREE.PlaneGeometry( 400, 400 ), new THREE.MeshBasicMaterial( { color: 0xe0e0e0 } ) );
-				plane.position.y = - 200;
-				plane.rotation.x = - Math.PI / 2;
-				scene.add( plane );
+				// SHAPE
+				shape = new THREE.Mesh( new THREE.OctahedronGeometry( 250, 5), new THREE.MeshBasicMaterial( { wireframe: true } ) );
+				scene.add( shape );
 
 				renderer = new THREE.WebGLRenderer();
 				renderer.setSize( window.innerWidth, window.innerHeight );
 
-				effect = new AsciiEffect( renderer, ' .:-+*=%@#', { invert: true } );
-				effect.setSize( window.innerWidth, window.innerHeight );
-				effect.domElement.style.color = 'white';
-				effect.domElement.style.backgroundColor = 'black';
-
-				// Special case: append effect.domElement, instead of renderer.domElement.
-				// AsciiEffect creates a custom domElement (a div container) where the ASCII elements are placed.
-
-				document.body.appendChild( effect.domElement );
+			//	document.body.appendChild( renderer.domElement );
+				document.getElementById("app").appendChild( renderer.domElement );
 
 			
 
@@ -69,7 +51,7 @@ import * as THREE from "three";
 				camera.updateProjectionMatrix();
 
 				renderer.setSize( window.innerWidth, window.innerHeight );
-				effect.setSize( window.innerWidth, window.innerHeight );
+			//	effect.setSize( window.innerWidth, window.innerHeight );
 
 			}
 
@@ -87,12 +69,12 @@ import * as THREE from "three";
 
 				const timer = Date.now() - start;
 
-				sphere.position.y = Math.abs( Math.sin( timer * 0.002 ) ) * 150;
-				sphere.rotation.x = timer * 0.0004;
-				sphere.rotation.z = timer * 0.0004;
+				shape.position.y = timer * 0.0004;
+				shape.rotation.x = timer * 0.0004;
+				shape.rotation.z = timer * 0.0004;
 
 				
 
-				effect.render( scene, camera );
+				renderer.render( scene, camera );
 
 			}
