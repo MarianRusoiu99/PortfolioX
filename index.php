@@ -1,8 +1,8 @@
 <?php
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
-include 'includes/includesMain.php';
+// ini_set('display_errors', '1');
+// ini_set('display_startup_errors', '1');
+// error_reporting(E_ALL);
+// include 'includes/includesMain.php';
 ?>
 
 <html lang="en">
@@ -32,62 +32,61 @@ include 'includes/includesMain.php';
       
 
     </canvas>
-    <p>asdfdsfsdffd</p>
-    <div class="main">
-        <p><a href="try.php"> asdfsdsdf</a></p>
+      <div class="main">
+        <!-- <p><a href="try.php"> asdfsdsdf</a></p>
         <p><a href="control/dashboard.php"> dashboard</a></p>
-        <p> SDFSDFASFSFSDF</p>
+        <p> SDFSDFASFSFSDF</p> -->
         <?php 
 
-    $obj = new Interact();
-    $interogation = $obj->fetchPost();
-    $imgpath = "media/";
+    // $obj = new Interact();
+    // $interogation = $obj->fetchPost();
+    // $imgpath = "media/";
     
     
     
-    for($x=0;$x<count($interogation);$x++){
-      echo "<br>";
+    // for($x=0;$x<count($interogation);$x++){
+    //   echo "<br>";
       
-      echo '<p>'.$interogation[$x]['title'].'</p>';
-      echo '<p>'.$interogation[$x]['content'].'</p>';
-      //print_r($interogation);
-      if (array_key_exists('img', $interogation[$x])) {
-          for ($y=0;$y<count((array)$interogation[$x]['img']);$y++) {
-              echo "<img src = ".$imgpath.$interogation[$x]['img'][$y]['fname']." width = '200' height = '200'>";
-          }
-      }
-      echo "<br>";
+    //   echo '<p>'.$interogation[$x]['title'].'</p>';
+    //   echo '<p>'.$interogation[$x]['content'].'</p>';
+    //   //print_r($interogation);
+    //   if (array_key_exists('img', $interogation[$x])) {
+    //       for ($y=0;$y<count((array)$interogation[$x]['img']);$y++) {
+    //           echo "<img src = ".$imgpath.$interogation[$x]['img'][$y]['fname']." width = '200' height = '200'>";
+    //       }
+    //   }
+    //   echo "<br>";
       
-      echo '<p>'.$interogation[$x]['title'].'</p>';
-      echo '<p>'.$interogation[$x]['content'].'</p>';
-      //print_r($interogation);
-      if (array_key_exists('img', $interogation[$x])) {
-          for ($y=0;$y<count((array)$interogation[$x]['img']);$y++) {
-              echo "<img src = ".$imgpath.$interogation[$x]['img'][$y]['fname']." width = '200' height = '200'>";
-          }
-      }
-      echo "<br>";
+    //   echo '<p>'.$interogation[$x]['title'].'</p>';
+    //   echo '<p>'.$interogation[$x]['content'].'</p>';
+    //   //print_r($interogation);
+    //   if (array_key_exists('img', $interogation[$x])) {
+    //       for ($y=0;$y<count((array)$interogation[$x]['img']);$y++) {
+    //           echo "<img src = ".$imgpath.$interogation[$x]['img'][$y]['fname']." width = '200' height = '200'>";
+    //       }
+    //   }
+    //   echo "<br>";
       
-      echo '<p>'.$interogation[$x]['title'].'</p>';
-      echo '<p>'.$interogation[$x]['content'].'</p>';
-      //print_r($interogation);
-      if (array_key_exists('img', $interogation[$x])) {
-          for ($y=0;$y<count((array)$interogation[$x]['img']);$y++) {
-              echo "<img src = ".$imgpath.$interogation[$x]['img'][$y]['fname']." width = '200' height = '200'>";
-          }
-      }
-      echo "<br>";
+    //   echo '<p>'.$interogation[$x]['title'].'</p>';
+    //   echo '<p>'.$interogation[$x]['content'].'</p>';
+    //   //print_r($interogation);
+    //   if (array_key_exists('img', $interogation[$x])) {
+    //       for ($y=0;$y<count((array)$interogation[$x]['img']);$y++) {
+    //           echo "<img src = ".$imgpath.$interogation[$x]['img'][$y]['fname']." width = '200' height = '200'>";
+    //       }
+    //   }
+    //   echo "<br>";
       
-      echo '<p>'.$interogation[$x]['title'].'</p>';
-      echo '<p>'.$interogation[$x]['content'].'</p>';
-      //print_r($interogation);
-      if (array_key_exists('img', $interogation[$x])) {
-          for ($y=0;$y<count((array)$interogation[$x]['img']);$y++) {
-              echo "<img src = ".$imgpath.$interogation[$x]['img'][$y]['fname']." width = '200' height = '200'>";
-          }
-      }
+    //   echo '<p>'.$interogation[$x]['title'].'</p>';
+    //   echo '<p>'.$interogation[$x]['content'].'</p>';
+    //   //print_r($interogation);
+    //   if (array_key_exists('img', $interogation[$x])) {
+    //       for ($y=0;$y<count((array)$interogation[$x]['img']);$y++) {
+    //           echo "<img src = ".$imgpath.$interogation[$x]['img'][$y]['fname']." width = '200' height = '200'>";
+    //       }
+    //   }
       
-    }
+    // }
     
     ?>
 
