@@ -6,7 +6,8 @@ import * as THREE from "three";
 import { OrbitControls } from 'https://unpkg.com/three/examples/jsm/controls/OrbitControls';
 import { ImprovedNoise } from 'https://unpkg.com/three/examples/jsm/math/ImprovedNoise.js';
 		
-			const camposx = -2000 , camposy = 1000 , camposz = 100 ;
+			const camposx = -2000 , camposy = 1900 , camposz = 100 ;
+			const camrotx = -2000 , camroty = 1900 , camrotz = 100 ;
 		
 			let camera, scene;
 
@@ -26,7 +27,7 @@ import { ImprovedNoise } from 'https://unpkg.com/three/examples/jsm/math/Improve
 
 			function init() {
 
-				camera = new THREE.PerspectiveCamera( 100, window.innerWidth / window.innerHeight, 1, 000 );
+				camera = new THREE.PerspectiveCamera( 100, window.innerWidth / window.innerHeight, 1, 10000 );
 		
 			
 				camera.position.x = camposx;
@@ -36,30 +37,36 @@ import { ImprovedNoise } from 'https://unpkg.com/three/examples/jsm/math/Improve
 
 				
 
-			//	camera.rotation.x = -45;
-			//	camera.rotation.z = 45;
-			//	camera.rotation.z = 10;
+				camera.rotation.x = camrotx;
+				camera.rotation.y = camroty;
+				camera.rotation.z = camrotz;
+
+
+				
 
 				scene = new THREE.Scene();
 
 				scene.background = new THREE.Color( 0, 0, 0 );
 
-				//scene.fog = new THREE.FogExp2( 0xefd1b5, 0.0025 );
+				scene.fog = new THREE.FogExp2( 0x000000, 0.0015 );
 				
-				const data = generateHeight( worldWidth, worldDepth );
+				
 
 				const light = new THREE.AmbientLight( 0x404040 ); // soft white light
 				scene.add( light );
 				
 				// SHAPE
+
 				const geometry = new THREE.PlaneGeometry( 7500, 7500, worldWidth - 1, worldDepth - 1 );
-				//geometry.rotateX( - Math.PI / 2 );
+				geometry.rotateX( - Math.PI / 2 );
 				
+				const data = generateHeight( worldWidth, worldDepth );
+
 				const vertices = geometry.attributes.position.array;
 
 				for ( let i = 0, j = 0, l = vertices.length; i < l; i ++, j += 3 ) {
 
-					vertices[ j + 1 ] = data[ i ] * 10;
+					vertices[ j + 1 ] = data[ i ] * 10 + Math.sin(start);
 
 				}
 
@@ -76,7 +83,7 @@ import { ImprovedNoise } from 'https://unpkg.com/three/examples/jsm/math/Improve
 			//	controls.update();
 				controls.enablePan = false;
 				controls.enableDamping = true;
-				controls.addEventListener('change',render);
+				
 
 
 				window.addEventListener( 'resize', onWindowResize );
@@ -95,7 +102,7 @@ import { ImprovedNoise } from 'https://unpkg.com/three/examples/jsm/math/Improve
 			
 			function generateHeight( width, height ) {
 
-				let seed = Math.PI / 4;
+				let seed =  Math.PI / 4;
 				window.Math.random = function () {
 
 					const x = Math.sin( seed ++ ) * 10000;
@@ -133,6 +140,7 @@ import { ImprovedNoise } from 'https://unpkg.com/three/examples/jsm/math/Improve
 				renderer.setSize( window.innerWidth, window.innerHeight );
 
 			}
+			
 
   			function animate() {
 			
@@ -145,9 +153,13 @@ import { ImprovedNoise } from 'https://unpkg.com/three/examples/jsm/math/Improve
 
 			function render() {
 
-				const timer = Date.now() - start;
-				//document.body.onscroll = moveCamera();
-				
+				const t = Date.now() - start;
+				const perlin = new ImprovedNoise();
+				console.log(perlin);
+				camera.position.z = camposz;// + perlin;
+			// 	camera.position.x = camposx + t *0.015;
+			// 	camera.position.y = camposz +t *0.03;
+			
 				renderer.render( scene, camera );
 
 			}

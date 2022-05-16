@@ -10,10 +10,10 @@ class Dbc {
     // private $pass = 'Lifeisstrange123';
     // private $dbname = 'u283226794_PortofolioDB1';
 
-    // private $host = 'localhost';
-    // private $user = 'root';
-    // private $pass = '';
-    // private $dbname = 'porto';
+    private $host = 'localhost';
+    private $user = 'root';
+    private $pass = '';
+    private $dbname = 'porto';
 
     public function connect(){
         echo "connected";
