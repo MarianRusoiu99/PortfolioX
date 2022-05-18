@@ -4,20 +4,20 @@ import {
     OrbitControls
 } from 'https://unpkg.com/three/examples/jsm/controls/OrbitControls';
 import {
-    ImprovedNoise
-} from 'https://unpkg.com/three/examples/jsm/math/ImprovedNoise.js';
+    SimplexNoise
+} from 'https://unpkg.com/simplex-noise@3.0.1/dist/esm/simplex-noise.js';
 
 
 
 const camposx = 0,
-    camposy = 0,
+    camposy = 100,
     camposz = 250;
 
 
 
-let camera, scene, number, planeGeo;
+let camera, scene, number, geometry;
 
-var controls;
+var controls, seed=0;
 
 
 const start = Date.now();
@@ -27,11 +27,8 @@ const renderer = new THREE.WebGLRenderer({
 });
 
 var vertexHeight = 15000,
-    planeDefinition = 100,
-    planeSize = 1245000,
-    totalObjects = 1,
-    background = "#002135",
-    meshColor = "#005e97";
+    planeDefinition = 50,
+    planeSize = 2000;
 
 
 
@@ -61,29 +58,23 @@ function init() {
     scene.add(light);
 
     // SHAPE
-    planeGeo = new THREE.PlaneBufferGeometry(planeSize, planeSize, planeDefinition, planeDefinition);
-    var plane = new THREE.Mesh(planeGeo, new THREE.MeshBasicMaterial({
-        color: meshColor,
+    geometry = new THREE.PlaneBufferGeometry(planeSize, planeSize, planeDefinition, planeDefinition);
+    var plane = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
         wireframe: true
     }));
     plane.rotation.x -= Math.PI * 0.5;
+    plane.rotation.z -= Math.PI/6;
 
     scene.add(plane);
+
+    number = geometry.attributes.position.count;
+
 
 
     renderer.setSize(window.innerWidth, window.innerHeight);
 
 
-    updatePlane();
-    number = planeGeo.attributes.position.count;
-
-    function updatePlane() {
-        for (var i = 0; i < number; i++) {
-            planeGeo.attributes.position[i] += Math.random() * vertexHeight - vertexHeight;
-            //planeGeo.vertices[i] = planeGeo.vertices[i].z;
-        }
-    }
-
+   
     //render();
 
 
@@ -122,30 +113,68 @@ function onWindowResize() {
 }
 
 
+// function generateTerrain()
+// {
+//     var perlin = new SimplexNoise();
+
+//     var data[number] = [];
+//     for(var i = 0; i < number ; i++){
+//         data[i]= perlin.noise2D(1,2);
+//     }
+// }
+
+
+
+function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+  }
+
+
+  function terrainMovement()
+  {
+    
+    var time = Date.now()/3000;
+
+    var xof = 0;
+    var yof = 0;
+    var zof = 0;
+    for(var i = 0; i < number ; i++){
+        
+        xof +=0.01;
+        yof +=0.01;
+        zof +=0.01;
+        var x = geometry.attributes.position.getX(i);
+        var y = geometry.attributes.position.getY(i);
+        var z = geometry.attributes.position.getZ(i);
+        
+        geometry.attributes.position.setZ(i,Math.sin(x*y+time)*20);
+        geometry.attributes.position.needsUpdate = true;
+      
+    }
+   
+    
+
+  }
+
+
 function animate() {
 
 
     //    requestAnimationFrame(render);
     
-    var x = camera.position.x;
-    var z = camera.position.z;
-    camera.position.x = x * Math.cos(0.001) + z * Math.sin(0.001) - 10;
-    camera.position.z = z * Math.cos(0.001) - x * Math.sin(0.001) - 10;
-    camera.lookAt(new THREE.Vector3(0, 8000, 0));
-   
-    for (var i = 0; i < number; i++) {
-        var ze = planeGeo.attributes.position.getZ(i);
-        planeGeo.attributes.position.setZ(i, Math.sin((i + count * 0.00002)) * (ze - (ze * 0.6)));
-        planeGeo.attributes.position.needUpdate = true;
-
-        count += 0.1;
-    }
     
+    seed +=0.0000000000001;
+    terrainMovement();
+  //  sleep(1000);
     requestAnimationFrame(animate);
     controls.update();
     render();
 }
-var count = 0;
+
 
 function render() {
 
