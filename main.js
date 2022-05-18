@@ -1,165 +1,155 @@
-
-
-
 import * as THREE from "three";
 
-import { OrbitControls } from 'https://unpkg.com/three/examples/jsm/controls/OrbitControls';
-import { ImprovedNoise } from 'https://unpkg.com/three/examples/jsm/math/ImprovedNoise.js';
-		
-			const camposx = -2000 , camposy = 1900 , camposz = 100 ;
-			const camrotx = -2000 , camroty = 1900 , camrotz = 100 ;
-		
-			let camera, scene;
-
-			var controls;
-		
-			const worldWidth = 256, worldDepth = 256;
-		
-			const start = Date.now();
-
-			const renderer = new THREE.WebGLRenderer({
-				canvas: document.querySelector('#app'),
-			  });
-		
-			init();
-		
-			animate();
-
-			function init() {
-
-				camera = new THREE.PerspectiveCamera( 100, window.innerWidth / window.innerHeight, 1, 10000 );
-		
-			
-				camera.position.x = camposx;
-				camera.position.y = camposy;
-				camera.position.z = camposz;
-				
-
-				
-
-				camera.rotation.x = camrotx;
-				camera.rotation.y = camroty;
-				camera.rotation.z = camrotz;
+import {
+    OrbitControls
+} from 'https://unpkg.com/three/examples/jsm/controls/OrbitControls';
+import {
+    ImprovedNoise
+} from 'https://unpkg.com/three/examples/jsm/math/ImprovedNoise.js';
 
 
-				
 
-				scene = new THREE.Scene();
-
-				scene.background = new THREE.Color( 0, 0, 0 );
-
-				scene.fog = new THREE.FogExp2( 0x000000, 0.0015 );
-				
-				
-
-				const light = new THREE.AmbientLight( 0x404040 ); // soft white light
-				scene.add( light );
-				
-				// SHAPE
-
-				const geometry = new THREE.PlaneGeometry( 7500, 7500, worldWidth - 1, worldDepth - 1 );
-				geometry.rotateX( - Math.PI / 2 );
-				
-				const data = generateHeight( worldWidth, worldDepth );
-
-				const vertices = geometry.attributes.position.array;
-
-				for ( let i = 0, j = 0, l = vertices.length; i < l; i ++, j += 3 ) {
-
-					vertices[ j + 1 ] = data[ i ] * 10 + Math.sin(start);
-
-				}
-
-				const mesh = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { wireframe: true } ) );
-				scene.add( mesh );
-				
-				renderer.setSize( window.innerWidth, window.innerHeight );
-
-				
-
-				//
-				
-				controls = new OrbitControls( camera, renderer.domElement );
-			//	controls.update();
-				controls.enablePan = false;
-				controls.enableDamping = true;
-				
+const camposx = 0,
+    camposy = 0,
+    camposz = 250;
 
 
-				window.addEventListener( 'resize', onWindowResize );
 
-			}
-			
-			// function moveCamera(){
-			// 	const t = document.body.getBoundingClientRect().top;
+let camera, scene, number, planeGeo;
 
-			// 	camera.position.z = camposz + t *0.01;
-			// 	camera.position.x = camposx + t *0.015;
-			// 	camera.position.y = camposz -t *0.03;
-				
-			// }
-			
-			
-			function generateHeight( width, height ) {
+var controls;
 
-				let seed =  Math.PI / 4;
-				window.Math.random = function () {
 
-					const x = Math.sin( seed ++ ) * 10000;
-					return x - Math.floor( x );
+const start = Date.now();
 
-				};
+const renderer = new THREE.WebGLRenderer({
+    canvas: document.querySelector('#app'),
+});
 
-				const size = width * height, data = new Uint8Array( size );
+var vertexHeight = 15000,
+    planeDefinition = 100,
+    planeSize = 1245000,
+    totalObjects = 1,
+    background = "#002135",
+    meshColor = "#005e97";
 
-				const perlin = new ImprovedNoise(), z = Math.random() * 100;
 
-				let quality = 2;
 
-				for ( let j = 0; j < 4; j ++ ) {
 
-					for ( let i = 0; i < size; i ++ ) {
+init();
 
-						const x = i % width, y = ~ ~ ( i / width );
-						data[ i ] += Math.abs( perlin.noise( x / quality, y / quality, z ) * quality * 1.75 );
+animate();
 
-					}
+function init() {
 
-					quality *= 5;
+    camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 1, 10000);
 
-				}
 
-				return data;
+    camera.position.x = camposx;
+    camera.position.y = camposy;
+    camera.position.z = camposz;
 
-			}
-			function onWindowResize() {
+    scene = new THREE.Scene();
 
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
+    scene.background = new THREE.Color(0, 0, 0);
 
-				renderer.setSize( window.innerWidth, window.innerHeight );
+    scene.fog = new THREE.FogExp2(0x000000, 0.0045);
 
-			}
-			
 
-  			function animate() {
-			
-				
-				requestAnimationFrame( animate );
-				controls.update();
-				render();
 
-			}
+    const light = new THREE.AmbientLight(0x404040); // soft white light
+    scene.add(light);
 
-			function render() {
+    // SHAPE
+    planeGeo = new THREE.PlaneBufferGeometry(planeSize, planeSize, planeDefinition, planeDefinition);
+    var plane = new THREE.Mesh(planeGeo, new THREE.MeshBasicMaterial({
+        color: meshColor,
+        wireframe: true
+    }));
+    plane.rotation.x -= Math.PI * 0.5;
 
-				const t = Date.now() - start;
-				const perlin = new ImprovedNoise();
-				console.log(perlin);
-				camera.position.z = camposz;// + perlin;
-			// 	camera.position.x = camposx + t *0.015;
-			// 	camera.position.y = camposz +t *0.03;
-			
-				renderer.render( scene, camera );
+    scene.add(plane);
 
-			}
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+
+    updatePlane();
+    number = planeGeo.attributes.position.count;
+
+    function updatePlane() {
+        for (var i = 0; i < number; i++) {
+            planeGeo.attributes.position[i] += Math.random() * vertexHeight - vertexHeight;
+            //planeGeo.vertices[i] = planeGeo.vertices[i].z;
+        }
+    }
+
+    //render();
+
+
+
+    //
+
+    controls = new OrbitControls(camera, renderer.domElement);
+    //	controls.update();
+    controls.enablePan = false;
+    controls.enableDamping = true;
+
+
+
+    window.addEventListener('resize', onWindowResize);
+
+}
+
+// function moveCamera(){
+// 	const t = document.body.getBoundingClientRect().top;
+
+// 	camera.position.z = camposz + t *0.01;
+// 	camera.position.x = camposx + t *0.015;
+// 	camera.position.y = camposz -t *0.03;
+
+// }
+
+
+
+function onWindowResize() {
+
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+}
+
+
+function animate() {
+
+
+    //    requestAnimationFrame(render);
+    
+    var x = camera.position.x;
+    var z = camera.position.z;
+    camera.position.x = x * Math.cos(0.001) + z * Math.sin(0.001) - 10;
+    camera.position.z = z * Math.cos(0.001) - x * Math.sin(0.001) - 10;
+    camera.lookAt(new THREE.Vector3(0, 8000, 0));
+   
+    for (var i = 0; i < number; i++) {
+        var ze = planeGeo.attributes.position.getZ(i);
+        planeGeo.attributes.position.setZ(i, Math.sin((i + count * 0.00002)) * (ze - (ze * 0.6)));
+        planeGeo.attributes.position.needUpdate = true;
+
+        count += 0.1;
+    }
+    
+    requestAnimationFrame(animate);
+    controls.update();
+    render();
+}
+var count = 0;
+
+function render() {
+
+
+    renderer.render(scene, camera);
+
+}

@@ -17,7 +17,9 @@ include 'includes/includesMain.php';
   <body>
   
   <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
-    
+  <script async src="https://unpkg.com/perlin-noise-3d"></script>  
+
+
 <script type="importmap">
   {
     "imports": {
