@@ -10,7 +10,9 @@ include 'includes/includesMain.php';
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+    <link rel="stylesheet" type="text/css" href="style/style.css">`
+ 
+
       
     <title>Vite App</title>
   </head>
@@ -34,61 +36,61 @@ include 'includes/includesMain.php';
       
 
     </canvas>
-      <div class="main">
+      <div class="main smooth-scroll-wrapper" >
         <!-- <p><a href="try.php"> asdfsdsdf</a></p>
         <p><a href="control/dashboard.php"> dashboard</a></p>
         <p> SDFSDFASFSFSDF</p> -->
         <?php 
 
-    // $obj = new Interact();
-    // $interogation = $obj->fetchPost();
-    // $imgpath = "media/";
+    $obj = new Interact();
+    $interogation = $obj->fetchPost();
+    $imgpath = "media/";
     
     
     
-    // for($x=0;$x<count($interogation);$x++){
-    //   echo "<br>";
+    for($x=0;$x<count($interogation);$x++){
+      echo "<br>";
       
-    //   echo '<p>'.$interogation[$x]['title'].'</p>';
-    //   echo '<p>'.$interogation[$x]['content'].'</p>';
-    //   //print_r($interogation);
-    //   if (array_key_exists('img', $interogation[$x])) {
-    //       for ($y=0;$y<count((array)$interogation[$x]['img']);$y++) {
-    //           echo "<img src = ".$imgpath.$interogation[$x]['img'][$y]['fname']." width = '200' height = '200'>";
-    //       }
-    //   }
-    //   echo "<br>";
+      echo '<p>'.$interogation[$x]['title'].'</p>';
+      echo '<p>'.$interogation[$x]['content'].'</p>';
+      //print_r($interogation);
+      if (array_key_exists('img', $interogation[$x])) {
+          for ($y=0;$y<count((array)$interogation[$x]['img']);$y++) {
+              echo "<img src = ".$imgpath.$interogation[$x]['img'][$y]['fname']." width = '200' height = '200'>";
+          }
+      }
+      echo "<br>";
       
-    //   echo '<p>'.$interogation[$x]['title'].'</p>';
-    //   echo '<p>'.$interogation[$x]['content'].'</p>';
-    //   //print_r($interogation);
-    //   if (array_key_exists('img', $interogation[$x])) {
-    //       for ($y=0;$y<count((array)$interogation[$x]['img']);$y++) {
-    //           echo "<img src = ".$imgpath.$interogation[$x]['img'][$y]['fname']." width = '200' height = '200'>";
-    //       }
-    //   }
-    //   echo "<br>";
+      echo '<p>'.$interogation[$x]['title'].'</p>';
+      echo '<p>'.$interogation[$x]['content'].'</p>';
+      //print_r($interogation);
+      if (array_key_exists('img', $interogation[$x])) {
+          for ($y=0;$y<count((array)$interogation[$x]['img']);$y++) {
+              echo "<img src = ".$imgpath.$interogation[$x]['img'][$y]['fname']." width = '200' height = '200'>";
+          }
+      }
+      echo "<br>";
       
-    //   echo '<p>'.$interogation[$x]['title'].'</p>';
-    //   echo '<p>'.$interogation[$x]['content'].'</p>';
-    //   //print_r($interogation);
-    //   if (array_key_exists('img', $interogation[$x])) {
-    //       for ($y=0;$y<count((array)$interogation[$x]['img']);$y++) {
-    //           echo "<img src = ".$imgpath.$interogation[$x]['img'][$y]['fname']." width = '200' height = '200'>";
-    //       }
-    //   }
-    //   echo "<br>";
+      echo '<p>'.$interogation[$x]['title'].'</p>';
+      echo '<p>'.$interogation[$x]['content'].'</p>';
+      //print_r($interogation);
+      if (array_key_exists('img', $interogation[$x])) {
+          for ($y=0;$y<count((array)$interogation[$x]['img']);$y++) {
+              echo "<img src = ".$imgpath.$interogation[$x]['img'][$y]['fname']." width = '200' height = '200'>";
+          }
+      }
+      echo "<br>";
       
-    //   echo '<p>'.$interogation[$x]['title'].'</p>';
-    //   echo '<p>'.$interogation[$x]['content'].'</p>';
-    //   //print_r($interogation);
-    //   if (array_key_exists('img', $interogation[$x])) {
-    //       for ($y=0;$y<count((array)$interogation[$x]['img']);$y++) {
-    //           echo "<img src = ".$imgpath.$interogation[$x]['img'][$y]['fname']." width = '200' height = '200'>";
-    //       }
-    //   }
+      echo '<p>'.$interogation[$x]['title'].'</p>';
+      echo '<p>'.$interogation[$x]['content'].'</p>';
+      //print_r($interogation);
+      if (array_key_exists('img', $interogation[$x])) {
+          for ($y=0;$y<count((array)$interogation[$x]['img']);$y++) {
+              echo "<img src = ".$imgpath.$interogation[$x]['img'][$y]['fname']." width = '200' height = '200'>";
+          }
+      }
       
-    // }
+    }
     
     ?>
 
@@ -96,6 +98,27 @@ include 'includes/includesMain.php';
     
 
     <script type="module" src="./main.js"></script>
+    <script type="application/javascript">
+    const body = document.body,
+scrollWrap = document.getElementsByClassName("smooth-scroll-wrapper")[0],
+height = scrollWrap.getBoundingClientRect().height - 1,
+speed = 0.07;
+
+var offset = 0;
+
+body.style.height = Math.floor(height) + "px";
+
+function smoothScroll() {
+offset += (window.pageYOffset - offset) * speed;
+
+var scroll = "translateY(-" + offset + "px) translateZ(0)";
+scrollWrap.style.transform = scroll;
+
+callScroll = requestAnimationFrame(smoothScroll);
+}
+
+smoothScroll();
+    </script>
     
   </body>
 </html>

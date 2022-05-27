@@ -78,8 +78,9 @@ class Interact extends Dbc
     public function insertUser($username, $pass, $email)
     {
         $sql = "INSERT INTO user (username,pass,email) VALUES(?,?,?)";
+
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$username,$pass,$email]);
+        $stmt->execute([$username,md5($pass.$username),$email]);
     }
     public function deleteUser($usr_id)
     {
@@ -87,6 +88,34 @@ class Interact extends Dbc
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$usr_id]);
     }
+    public function getUser($user){
+        $sql = "SELECT * FROM  user WHERE username = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$user]);
+        return $stmt->fetch();
+
+    }  
+    public function getAllUsers(){
+        $sql = "SELECT * from USER";
+        $usrarr=[];
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute();
+        while($row = $stmt->fetch()){
+            $usrarr[] = $row['username'] ;
+        }
+        return $usrarr;
+    }
+    public function getAllEmails(){
+        $sql = "SELECT * from USER";
+        $emlarr=[];
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute();
+        while($row = $stmt->fetch()){
+            $emlarr[] = $row['email'] ;
+        }
+        return $emlarr;
+    }      
+
 
     //blog
 
