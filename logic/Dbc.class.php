@@ -16,7 +16,7 @@ class Dbc {
     private $dbname = 'porto';
 
     public function connect(){
-       // echo "connected";
+       //2 echo "connected";
         $dsn = 'mysql:host='.$this->host.';dbname='.$this->dbname;
         $pdo = new PDO($dsn, $this->user, $this->pass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

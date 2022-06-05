@@ -11,16 +11,10 @@ if(isset($_POST['submit'])){
 
     $obj = new Interact();
     $arr = $obj->getUser($User);
-    if(!$obj->getUser($User)){
-        echo "username incorect";
+    if(!$obj->getUser($User) || md5($Pass.$User)!=$arr['pass']){
+        echo "Incorrect Username or Password.";
     }else{
-        if(md5($Pass.$User)==$arr['pass']){
             header("Location: ../control/dashboard.php");
-           
-        }
-        else{
-            echo "password incorect";
-        }
     }
 
     

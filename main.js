@@ -58,7 +58,7 @@ function init() {
     // SHAPE
     geometry = new THREE.PlaneBufferGeometry(planeSize, planeSize, planeDefinition, planeDefinition);
     var plane = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
-        wireframe: true
+        wireframe: true, color:0xE6E6E6 
     }));
     plane.rotation.x -= Math.PI / 2;
     plane.rotation.z -= Math.PI / 7;
@@ -86,6 +86,9 @@ function init() {
 
 
     window.addEventListener('resize', onWindowResize);
+
+
+    
 
 }
 
@@ -131,7 +134,7 @@ function terrainMovement() {
         var y = geometry.attributes.position.getY(i);
 
 
-        geometry.attributes.position.setZ(i, Math.sin(x * y + time) * 20);
+        geometry.attributes.position.setZ(i, Math.sin(x*2 * y/2 + time) * 25);
         geometry.attributes.position.needsUpdate = true;
 
     }

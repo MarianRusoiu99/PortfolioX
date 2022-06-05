@@ -1,19 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        var ok=0;
+        var ok1=0;
+        var ok2=0;
+      $(document).ready(function (e) {
+
+        $("#submit").attr("disabled", true);
+        var output = $("#outputpass");
+        var phpfile = "../logic/check.php";
+
+        $("#username").keyup(function () {
+          var username = $(this).val(); //
+
+          if (username != "") {
+            //check to see if username exists
+            $.post(
+              phpfile,
+              { checkUser: username },
+              function (data) {
+               // console.log(typeof data);
+                var obj = JSON.parse(
+                  "[" +
+                    data.replace(/}{(?=([^"]*"[^"]*")*[^"]*$)/g, "},{") +
+                    "]"
+                );
+               // console.log(obj[0]);
+                for (i = 0; i < obj.length; i++) {
+                  if (obj[i].status == 0) {
+                    $("#outputuser").html(obj[i].html);
+                    ok = 0;
+                    Validate(ok,ok1,ok2);
+                  }
+                  if (obj[i].status == 1) {
+                    $("#outputuser").html(obj[i].html);
+                    ok = 1;
+                    Validate(ok,ok1,ok2);
+                  }
+                }
+              },
+              "text"
+            );
+          }
+        });
+
+
+     
+        $("#email").keyup(function () {
+          var email = $(this).val(); //
+
+          if (email != "") {
+            //check to see if username exists
+            $.post(
+              phpfile,
+              { checkEmail: email },
+              function (data1) {
+               // console.log(data1);
+                var obj1 = JSON.parse(
+                  "[" +
+                    data1.replace(/}{(?=([^"]*"[^"]*")*[^"]*$)/g, "},{") +
+                    "]"
+                );
+
+        
+                for (i = 0; i < obj1.length; i++) {
+                  if (obj1[i].status == 0) {
+                    $("#outputemail").html(obj1[i].html);
+                    ok1 = 0;
+                    Validate(ok,ok1,ok2);
+                
+                  }
+                  if (obj1[i].status == 1) {
+                    $("#outputemail").html(obj1[i].html);
+                    ok1 = 1;
+                    Validate(ok,ok1,ok2);
+                    
+                  }
+                }
+              },
+              "text"
+            );
+          }
+        });
+
+        $("#password").keyup(function () {
+          var pass = $(this).val(); //
+
+          if (pass != "") {
+            //check to see if username exists
+            $.post(
+              phpfile,
+              { checkPass: pass },
+              function (data2) {
+                var obj2 = JSON.parse(
+                  "[" +
+                    data2.replace(/}{(?=([^"]*"[^"]*")*[^"]*$)/g, "},{") +
+                    "]"
+                );
+                for (i = 0; i < obj2.length; i++) {
+                  if (obj2[i].status == 0) {
+                    $("#outputpass").html(obj2[i].html);
+                    ok2 = 0;
+                    Validate(ok,ok1,ok2);
+                    
+                  }
+                  if (obj2[i].status == 1) {
+                    $("#outputpass").html(obj2[i].html);
+                    ok2 = 1;
+                    Validate(ok,ok1,ok2);
+             
+                  }
+                }
+              },
+              "text"
+            );
+          }
+        });
+       
+
+        function Validate(ok,ok1,ok2){
+            if(ok && ok1 && ok2 == 1){
+                $("#submit").removeAttr("disabled");
+            }
+            
+        }
+
+
+      });
+    </script>
     <title>Document</title>
-
-</head>
-<body>
-    <form action='../logic/register.php' method="POST">
-        <input type="text" id="username" name="username" value="username">
-        <input type="text" id="email" name="email" value="email">
-        <input type="password" name="password" value="pass" id="password"> 
-        <input type="submit" value="Submit" name="submit">
+  </head>
+  <body>
+    <form action="../logic/register.php" method="POST">
+      <input type="text" id="username" name="username" placeholder="username" />
+      <span id="outputuser"></span>
+      <br />
+      <input type="text" id="email" name="email" placeholder="email" />
+      <span id="outputemail"></span>
+      <br />
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        id="password"
+      />
+      <span id="outputpass"></span>
+      <input type="submit" value="Submit" name="submit" id="submit" />
     </form>
-
-</body>
+  </body>
 </html>
