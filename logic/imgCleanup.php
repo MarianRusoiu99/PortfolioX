@@ -8,21 +8,19 @@ if (isset($_POST['Submit']))
 {
     $dir = "../media/*.{png,jpg,gif,jpeg}";
     $images = glob( $dir,GLOB_BRACE );
-  //  str_replace("../media/", "",$images);
 
     $obj = new Interact();
     $currentIMG = $obj->getAllImg();
-    //print_r($currentIMG);
+   
     $numTable = count($currentIMG);
     $numFolder = count($images);
-    //echo $numTable;
-   // echo $numFolder;
-    for($i=0;$i<$numFolder;$i++){
+  
+    for($i=0;$i<$numFolder;$i++){ //searches for images in the media folder that are not in the database and deletes them
         $subject = str_replace("../media/", "",$images[$i]);
-        //echo $subject." ";
+        
         $flag = 0;
         for($j=0;$j<$numTable;$j++){
-            //echo $j;
+            
             if($subject == $currentIMG[$j]['fname']){
                 $flag = 1;   
             }

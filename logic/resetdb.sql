@@ -34,5 +34,5 @@ CREATE TABLE BLOG (
     img int,
     PRIMARY KEY (blog_id)
 );
-insert into usera (username,pass,email)  Values('vali','123456','vlentinrusoiu@gmail.com');
+/*insert into usera (username,pass,email)  Values('vali','123456','valentinrusoiu@gmail.com');*/
 

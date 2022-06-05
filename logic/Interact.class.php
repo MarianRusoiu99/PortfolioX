@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 class Interact extends Dbc
 {
 
-//POST
+    //POST
     public function getIdFromTitle($title)
     {
         $sql = "SELECT post_id FROM POST where title = ?";
@@ -73,8 +73,8 @@ class Interact extends Dbc
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$img_id]);
     }
-    //user
 
+    //USER
     public function insertUser($username, $pass, $email)
     {
         $sql = "INSERT INTO user (username,pass,email) VALUES(?,?,?)";
@@ -117,9 +117,9 @@ class Interact extends Dbc
     }      
 
 
-    //blog
+   
 
-//micelanious
+    //micelanious
     public function fetchPost(){
         $sql = "SELECT * FROM POST";
         

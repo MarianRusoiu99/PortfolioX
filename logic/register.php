@@ -12,14 +12,14 @@ if(isset($_POST['submit'])){
    
     $obj = new Interact();
     if(in_array($User,$obj->getAllUsers())){
-        echo"username already in use. <a href = '../control/register.html'>please try a new one.</a>";    
+        echo"Username already in use. <a href = '../control/register.html'>please try a new one.</a>";    
         if(in_array($Email,$obj->getAllEmails())){
-            echo"email already in use. <a href = '../control/register.html'>please try a new one.</a>";  
+            echo"Email already in use. <a href = '../control/register.html'>please try a new one.</a>";  
     }
     }else{
          
             $obj->insertUser($User,$Pass,$Email);
-            echo"user inserted succesfully";
+            echo"New user inserted succesfully!";
         
     }
    

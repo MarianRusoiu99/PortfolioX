@@ -16,10 +16,9 @@ error_reporting(E_ALL);
     
 
      $obj = new Interact();
-     $obj->insertPost($Title,$Content);
+     $obj->insertPost($Title,$Content); 
 
      $id = $obj->getIdFromTitle($Title); 
-    
     
     $uploaddir = '../media/';
     
@@ -46,8 +45,3 @@ error_reporting(E_ALL);
 
 
  }
-
-
-
-
-?>
