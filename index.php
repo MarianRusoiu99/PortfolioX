@@ -38,9 +38,17 @@ include 'includes/includesMain.php';
 
     </canvas>
       <div class="main smooth-scroll-wrapper" >
-        <!-- <p><a href="try.php"> asdfsdsdf</a></p>
-        <p><a href="control/dashboard.php"> dashboard</a></p>
-        <p> SDFSDFASFSFSDF</p> -->
+        <div class="placement">
+        <p class="title">Lorem ipsum</p>
+        <p class="subtitle">Lorem ipsum</p>
+        <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur facilisis consectetur felis in eleifend. Nulla ut odio vel arcu venenatis vulputate. Sed libero massa, blandit nec condimentum a, porttitor interdum turpis. Quisque nec nunc diam. Maecenas tempor consequat odio vel commodo. Sed vel nibh dapibus, viverra nibh at, finibus odio. Nunc varius nisl iaculis nulla elementum, at pretium diam posuere. Morbi tincidunt sed nunc non volutpat. Etiam in augue iaculis, cursus libero eu, pellentesque libero.w</p>
+        <a href="control/login.html"><p>Login</p></a>
+        <a href="control/register.html"><p>Register</p></a>  
+      </div>
+
+
+
+      <div class="container">
         <?php 
 
     $obj = new Interact();
@@ -52,49 +60,20 @@ include 'includes/includesMain.php';
     for($x=0;$x<count($interogation);$x++){
       echo "<br>";
       
-      echo '<p>'.$interogation[$x]['title'].'</p>';
-      echo '<p>'.$interogation[$x]['content'].'</p>';
+      echo '<p class="postTitle">'.$interogation[$x]['title'].'</p>';
+      echo '<p class="postContent">'.$interogation[$x]['content'].'</p>';
       //print_r($interogation);
       if (array_key_exists('img', $interogation[$x])) {
           for ($y=0;$y<count((array)$interogation[$x]['img']);$y++) {
-              echo "<img src = ".$imgpath.$interogation[$x]['img'][$y]['fname']." width = '200' height = '200'>";
+              echo "<img class='postImg' src = ".$imgpath.$interogation[$x]['img'][$y]['fname']." width = '200' height = '200'>";
           }
       }
-      echo "<br>";
       
-      echo '<p>'.$interogation[$x]['title'].'</p>';
-      echo '<p>'.$interogation[$x]['content'].'</p>';
-      //print_r($interogation);
-      if (array_key_exists('img', $interogation[$x])) {
-          for ($y=0;$y<count((array)$interogation[$x]['img']);$y++) {
-              echo "<img src = ".$imgpath.$interogation[$x]['img'][$y]['fname']." width = '200' height = '200'>";
-          }
-      }
-      echo "<br>";
-      
-      echo '<p>'.$interogation[$x]['title'].'</p>';
-      echo '<p>'.$interogation[$x]['content'].'</p>';
-      //print_r($interogation);
-      if (array_key_exists('img', $interogation[$x])) {
-          for ($y=0;$y<count((array)$interogation[$x]['img']);$y++) {
-              echo "<img src = ".$imgpath.$interogation[$x]['img'][$y]['fname']." width = '200' height = '200'>";
-          }
-      }
-      echo "<br>";
-      
-      echo '<p>'.$interogation[$x]['title'].'</p>';
-      echo '<p>'.$interogation[$x]['content'].'</p>';
-      //print_r($interogation);
-      if (array_key_exists('img', $interogation[$x])) {
-          for ($y=0;$y<count((array)$interogation[$x]['img']);$y++) {
-              echo "<img src = ".$imgpath.$interogation[$x]['img'][$y]['fname']." width = '200' height = '200'>";
-          }
-      }
       
     }
     
     ?>
-
+    </div>
       </div>
     
 

@@ -9,13 +9,12 @@ import {
 const camposx = 0,
     camposy = 250,
     camposz = 250;
-
-
-
 let camera, scene, number, geometry;
-
-var controls;
-
+var planeDefinition = 300,
+    planeSize = 30000,
+    controls;
+const bgcolor = 0x171717 ;
+const edgecolor = 0x444444;
 
 
 
@@ -24,84 +23,54 @@ const renderer = new THREE.WebGLRenderer({
 });
 
 
-
-
-
-var vertexHeight = 15000,
-    planeDefinition = 300,
-    planeSize = 30000;
-
-
-
-
 init();
 
 animate();
 
 function init() {
-
+    //camera
     camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 1, 10000);
     camera.position.x = camposx;
-     camera.position.y =  camposy;
-      camera.position.z = camposz;
+    camera.position.y =  camposy;
+    camera.position.z = camposz;
 
-    
+    //scene
     scene = new THREE.Scene();
-  
-    scene.background = new THREE.Color(0x191919);
-
-    scene.fog = new THREE.FogExp2(0x191919, 0.0025);
+    scene.background = new THREE.Color(bgcolor);
+    scene.fog = new THREE.FogExp2(bgcolor, 0.0025);
 
 
 
 
-    // SHAPE
+    // plane geometry
     geometry = new THREE.PlaneBufferGeometry(planeSize, planeSize, planeDefinition, planeDefinition);
     var plane = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
-        wireframe: true, color:0xE6E6E6 
+        wireframe: true, color:edgecolor 
     }));
     plane.rotation.x -= Math.PI / 2;
     plane.rotation.z -= Math.PI / 7;
-    
 
     scene.add(plane);
 
     number = geometry.attributes.position.count;
 
-    
-
-
-
-
-
-
     renderer.setSize(window.innerWidth, window.innerHeight);
 
-
+    //controls
     controls = new OrbitControls(camera, renderer.domElement);
 
     controls.enablePan = false;
     controls.enableDamping = true;
 
-
-
     window.addEventListener('resize', onWindowResize);
-
-
-    
 
 }
 
 
-
-
 function onWindowResize() {
-
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-
     renderer.setSize(window.innerWidth, window.innerHeight);
-
 }
 
 
@@ -109,19 +78,12 @@ function onWindowResize() {
 
 function scrollCamera() {
     var t = document.body.getBoundingClientRect().top;
-     camera.position.x = camposx - t*t/5000 ;
-     camera.position.y =  camposy;
-      camera.position.z = camposz;
-
- 
-
-   
+    camera.position.x = camposx - t*t/5000 ;
+    camera.position.y =  camposy;
+    camera.position.z = camposz;
 }
 
 document.body.onscroll = scrollCamera;
-
-
-
 
 function terrainMovement() {
 

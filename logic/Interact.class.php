@@ -24,6 +24,17 @@ class Interact extends Dbc
             echo $row['title'].'<br>';
         }
     }
+    public function getAllTitles(){
+        $sql = "SELECT title FROM post";
+        $stmt = $this->connect()->query($sql);
+        $arr = [];
+        while ($row=$stmt->fetch()) {
+            $arr[] = $row ;
+        }
+
+        return $arr;
+
+    }
 
     public function insertPost($title, $content)
     {

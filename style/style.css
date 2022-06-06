@@ -1,4 +1,8 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;900&display=swap');
+
+
+
 html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}
 body{line-height:1}
 article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}
@@ -27,10 +31,37 @@ input,select{vertical-align:middle}
   z-index:2;
  
 }
-
+.title {
+  font-size: max(13vmin, 50px);
+  padding-bottom:1.5vmin;
+  width: fit-content;
+  
+}
+.subtitle{
+  width: fit-content;
+  color:E1325E;
+  padding-bottom:0.5vmin;
+  font-size: max(6vmin, 30px);
+  
+}
+.description{
+  width: fit-content;
+ 
+  font-size: max(3vmin, 20px);
+}
+.placement{
+  margin-inline: 3vmin;
+  margin-top: max(5vmin,30px);
+  width: 90%;
+}
+.container{
+width: 90%;
+margin-inline:auto;
+}
 
 p {
-  color:aliceblue;
+  color: EDEDED;
+  font-family: 'Inconsolata', monospace;
 }
 .smooth-scroll-wrapper {
   position: fixed;
@@ -38,4 +69,11 @@ p {
   top: 0;
   left: 0;
   overflow: hidden;
+}
+
+.postTitle{
+  font-size:5vmin;
+}
+.postContent{
+  font-size: 4vmin  ;
 }

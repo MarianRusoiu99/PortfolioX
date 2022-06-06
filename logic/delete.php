@@ -5,16 +5,16 @@ error_reporting(E_ALL);
 include '../includes/includes.php';
 
 
+$obj = new Interact();
+$Title = $_REQUEST['title'];
+ if (isset($_POST['Submit']) && isset($_POST['title']) && in_array($Title,$obj->getAllTitles())) {
 
-
- if (isset($_POST['Submit']) && isset($_POST['title'])) {
-
-    $Title = $_REQUEST['title'];
-    $obj = new Interact();
+   
+    
     $delete=$obj->getIdFromTitle($Title);
     $obj->deletePost(reset($delete));
 
-    echo "Post with title ".$Title."was deleted";
+    echo "Post with title ".$Title." was deleted";
  }
  else{
      echo"Something went wrong. Make sure the title of the post was inserted correctly.";
